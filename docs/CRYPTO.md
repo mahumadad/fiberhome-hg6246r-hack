@@ -126,7 +126,7 @@ Intentos fallidos confirmaron empíricamente esto:
 
 | # | Algoritmo | Resultado |
 |---|-----------|-----------|
-| 1 | AES-128-CBC, $K = \text{IV} = \texttt{opqrstuvwxyz\{|\}}\sim$ | Garbage |
+| 1 | AES-128-CBC, $K = \text{IV} = \texttt{opqrstuvwxyz\{}\vert\texttt{\}}\sim$ | Garbage |
 | 2 | AES-128-ECB, misma clave | Garbage |
 | 5 | AES-128-CBC, $K = \texttt{ABCDEFGHIJKLMNOP}$ | Garbage |
 | 6 | AES-128-ECB, misma clave | Garbage (y $n \bmod 16 \neq 0$) |
