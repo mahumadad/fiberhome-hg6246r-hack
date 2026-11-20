@@ -30,7 +30,7 @@ $$\mathtt{usrconfig\_conf} \xrightarrow{\text{Capa 2}^{-1}} \text{UCI config} \x
 
 ## 2. Notación
 
-Sea $\mathbb{B} = \{0,1\}^8 \cong \mathbb{Z}_{256}$ el conjunto de bytes. Para un mensaje
+Sea $\mathbb{B} = \lbrace 0,1\rbrace^8 \cong \mathbb{Z}_{256}$ el conjunto de bytes. Para un mensaje
 $M = (M_0, M_1, \dots, M_{n-1}) \in \mathbb{B}^n$, escribimos $|M| = n$ para su longitud
 en bytes.
 
@@ -126,7 +126,7 @@ Intentos fallidos confirmaron empíricamente esto:
 
 | # | Algoritmo | Resultado |
 |---|-----------|-----------|
-| 1 | AES-128-CBC, $K = \text{IV} = \texttt{opqrstuvwxyz\{}\vert\texttt{\}}\sim$ | Garbage |
+| 1 | AES-128-CBC, $K = \text{IV} = \texttt{opqrstuvwxyz}\lbrace\vert\rbrace\sim$ | Garbage |
 | 2 | AES-128-ECB, misma clave | Garbage |
 | 5 | AES-128-CBC, $K = \texttt{ABCDEFGHIJKLMNOP}$ | Garbage |
 | 6 | AES-128-ECB, misma clave | Garbage (y $n \bmod 16 \neq 0$) |
@@ -203,7 +203,7 @@ Esto es simplemente un **contador módulo 256**, iniciado en $s \bmod 256$. Tien
 exactamente 256, lo que explica el pico de autocorrelación observado.
 
 **Proposición 2 (el keystream es una permutación cíclica de la identidad).** La secuencia
-$(S_0, S_1, \dots, S_{255})$ es una permutación del conjunto $\{0, 1, \dots, 255\}$.
+$(S_0, S_1, \dots, S_{255})$ es una permutación del conjunto $\lbrace 0, 1, \dots, 255\rbrace$.
 
 *Prueba.* $S_j = (s + j) \bmod 256$ con $s$ fijo. Como la suma módulo 256 es una biyección
 $\mathbb{Z}_{256} \to \mathbb{Z}_{256}$ para cada $s$ fijo (es una traslación en el grupo
@@ -405,7 +405,7 @@ La siguiente tabla resume los esquemas criptográficos de modelos FiberHome cono
 | AN5506-04-F | — | Desconocido | XOR ($\kappa=9527$) | AES-128-ECB | — |
 
 Todas las claves son idénticas entre modelos:
-- Capa web: $K = \text{IV} = \texttt{opqrstuvwxyz\{|\}}\sim$
+- Capa web: $K = \text{IV} = \texttt{opqrstuvwxyz}\lbrace\vert\rbrace\sim$
 - Capa backup: $\kappa = 9527$
 - Capa credenciales: $K_{\text{ecb}} = \texttt{ABCDEFGHIJKLMNOP}$
 

@@ -16,6 +16,17 @@ Si tienes un router **FiberHome HG6246R** con firmware RP2952 (común en Movista
 
 El control de acceso del router es **solo client-side**: la interfaz web oculta las opciones de DHCP y backup para el usuario normal, pero el backend acepta las operaciones sin validar el nivel del usuario.
 
+> **⚠️ Qué NO se probó (y por qué)**
+>
+> Esta auditoría fue deliberadamente **solo lectura + DHCP**. No se intentó:
+> - **Escritura PON/LOID** — modificar parámetros de fibra óptica puede dejar el equipo sin conexión al OLT del ISP, irrecuperable sin intervención del operador.
+> - **Escritura TR-069** — alterar la configuración ACS podría desconectar el equipo del sistema de gestión remota del ISP.
+> - **Telnet/SSH** — los puertos 23/26 están cerrados en este firmware; forzar acceso shell podría brick-ear el equipo.
+> - **Cambio de contraseña admin** — `admin_management` fue probado solo para verificar accesibilidad, nunca para modificar la contraseña real.
+> - **Firmware modification/downgrade** — no se alteró ni reemplazó el firmware.
+>
+> El objetivo fue demostrar el acceso y documentar las vulnerabilidades, no causar daño. Si replicas esta investigación, respeta los mismos límites.
+
 ---
 
 ## Inicio rápido
@@ -258,16 +269,26 @@ Después del descifrado XOR, los valores de credenciales están cifrados una seg
 
 ## Divulgación responsable
 
-Estos hallazgos afectan equipos provistos por ISPs. Las vulnerabilidades están en el firmware (RP2952, compilado 2022-05-31) y no pueden ser corregidas por el usuario final. Se recomienda divulgación al ISP.
+Estos hallazgos afectan equipos provistos por ISPs. Las vulnerabilidades están en el firmware (RP2952, compilado 2022-05-31) y no pueden ser corregidas por el usuario final.
 
 Si eres un ISP que despliega este equipo: el modelo de control de acceso necesita validación server-side. Las claves criptográficas hardcodeadas necesitan ser reemplazadas por claves por dispositivo. El cifrado XOR del backup necesita ser reemplazado por un cifrado real.
+
+### Cronología
+
+| Fecha | Evento |
+|-------|--------|
+| 2026-11-19 | Auditoría completada sobre equipo propio |
+| 2026-11-20 | Publicación del repositorio con documentación completa |
+| 2026-11-XX | Notificación al ISP (Movistar Chile): **pendiente** |
+| — | Notificación a FiberHome PSIRT: **pendiente** |
+| — | Solicitud de CVE IDs: **pendiente** |
 
 ---
 
 ## Trabajo relacionado
 
 - [Numb Team / HG6145F1](https://github.com/MrSmiiith/hg6145f1-full-access) — CVE-2026-37752 a 37760. Mismo framework, distinta superficie de API.
-- Pierre Kim — CVE-2021-27165/27173/27177 (familia HG6245D). Backdoor telnet.
+- [Pierre Kim — FiberHome HG6245D](https://pierrekim.github.io/blog/2021-01-12-fiberhome-ont-0day-vulnerabilities.html) — CVE-2021-27165/27173/27177 (familia HG6245D). Backdoor telnet, 28 vulnerabilidades.
 - [MrSmiiith / HG6245D config decryption](https://github.com/MrSmiiith/fiberhome-hg6245d) — Misma constante XOR 9527.
 
 ---
