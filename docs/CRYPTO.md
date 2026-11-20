@@ -30,9 +30,9 @@ $$\mathtt{usrconfig\_conf} \xrightarrow{\text{Capa 2}^{-1}} \text{UCI config} \x
 
 ## 2. Notación
 
-Sea $\mathbb{B} = \lbrace 0,1\rbrace^8 \cong \mathbb{Z}_{256}$ el conjunto de bytes. Para un mensaje
-$M = (M_0, M_1, \dots, M_{n-1}) \in \mathbb{B}^n$, escribimos $|M| = n$ para su longitud
-en bytes.
+Sea $\mathbb{B} = \lbrace 0,1\rbrace^8 \cong \mathbb{Z}_{256}$ el conjunto de bytes.
+
+Para un mensaje $M = (M_0, M_1, \dots, M_{n-1}) \in \mathbb{B}^n$, escribimos $|M| = n$ para su longitud en bytes.
 
 $\oplus$ denota XOR bit a bit. $\lfloor \cdot \rfloor$ es la función piso. Para una
 función $f$, $f^{-1}$ es su inversa cuando existe.
@@ -206,8 +206,10 @@ exactamente 256, lo que explica el pico de autocorrelación observado.
 $(S_0, S_1, \dots, S_{255})$ es una permutación del conjunto $\lbrace 0, 1, \dots, 255\rbrace$.
 
 *Prueba.* $S_j = (s + j) \bmod 256$ con $s$ fijo. Como la suma módulo 256 es una biyección
-$\mathbb{Z}_{256} \to \mathbb{Z}_{256}$ para cada $s$ fijo (es una traslación en el grupo
-cíclico $\mathbb{Z}_{256}$), los 256 valores consecutivos son todos distintos. $\blacksquare$
+
+$$\mathbb{Z}_{256} \to \mathbb{Z}_{256}$$
+
+para cada $s$ fijo (es una traslación en el grupo cíclico $\mathbb{Z}_{256}$), los 256 valores consecutivos son todos distintos. $\blacksquare$
 
 ### 4.4 Observaciones criptográficas
 
@@ -329,8 +331,8 @@ $K_{\text{ecb}} = \texttt{"ABCDEFGHIJKLMNOP"}$.
 2. **Parseo UCI**: buscar la línea que contiene `WebSuperPassword` y extraer el valor
    hexadecimal $H$. Costo: $O(n)$ (búsqueda lineal).
 
-3. **Descifrado AES-ECB** (Capa 3): convertir $H$ de hex a bytes, aplicar
-   $\text{AES}_{K_{\text{ecb}}}^{-1}$ bloque por bloque, remover padding PKCS#7. Costo:
+3. **Descifrado AES-ECB** (Capa 3): convertir $H$ de hex a bytes, descifrar con
+   $K_{\text{ecb}}$ usando AES-ECB inverso bloque por bloque, remover padding PKCS#7. Costo:
    $O(|H|/16)$ operaciones AES = $O(1)$ para contraseñas típicas (1-2 bloques).
 
 El costo total es $O(n)$, dominado por el descifrado XOR. No se requiere fuerza bruta,
