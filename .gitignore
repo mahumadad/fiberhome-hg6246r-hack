@@ -1,0 +1,22 @@
+# Intermediate files
+usrconfig_conf
+usrconfig_decrypted.txt
+reservation_log.json
+creation_log.json
+
+# Session cookies
+/tmp/fhrouter.cookies
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
