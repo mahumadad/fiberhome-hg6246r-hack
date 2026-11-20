@@ -24,7 +24,7 @@ La implementación de referencia está en [`../scripts/fhcrypto.py`](../scripts/
 
 La cadena de ataque completa para recuperar la contraseña admin es:
 
-$$\text{usrconfig\_conf} \xrightarrow{\text{Capa 2}^{-1}} \text{UCI config} \xrightarrow{\text{Capa 3}^{-1}} \text{WebSuperPassword en claro}$$
+$$\mathtt{usrconfig\_conf} \xrightarrow{\text{Capa 2}^{-1}} \text{UCI config} \xrightarrow{\text{Capa 3}^{-1}} \text{WebSuperPassword en claro}$$
 
 ---
 
@@ -47,7 +47,7 @@ El cifrado de contraseñas para la interfaz web utiliza AES-128 en modo CBC con 
 PKCS#7. Tanto la clave como el vector de inicialización son la **misma cadena de 16
 bytes**, hardcodeada en `aes.js`:
 
-$$K = \text{IV} = (\texttt{0x6F}, \texttt{0x70}, \texttt{0x71}, \dots, \texttt{0x7E}) = \text{"opqrstuvwxyz\{|\}\textasciitilde"}$$
+$$K = \text{IV} = (\mathtt{0x6F}, \mathtt{0x70}, \mathtt{0x71}, \dots, \mathtt{0x7E}) = \texttt{"opqrstuvwxyz\{|\}}\sim\texttt{"}$$
 
 Generada por `int_aes_iv()`:
 
@@ -126,7 +126,7 @@ Intentos fallidos confirmaron empíricamente esto:
 
 | # | Algoritmo | Resultado |
 |---|-----------|-----------|
-| 1 | AES-128-CBC, $K = \text{IV} = \texttt{opqrstuvwxyz\{|\}\textasciitilde}$ | Garbage |
+| 1 | AES-128-CBC, $K = \text{IV} = \texttt{opqrstuvwxyz\{|\}}\sim$ | Garbage |
 | 2 | AES-128-ECB, misma clave | Garbage |
 | 5 | AES-128-CBC, $K = \texttt{ABCDEFGHIJKLMNOP}$ | Garbage |
 | 6 | AES-128-ECB, misma clave | Garbage (y $n \bmod 16 \neq 0$) |
@@ -286,7 +286,7 @@ modo ECB es equivalente a un cifrado de bloque simple.
 
 Para el caso específico de `WebSuperPassword`:
 
-$$|\text{"e61a5ccb"}| = 8 \text{ bytes} \xrightarrow{\text{PKCS\#7}} 16 \text{ bytes} \xrightarrow{\text{AES}} 16 \text{ bytes} = 32 \text{ hex chars}.$$
+$$|\texttt{"e61a5ccb"}| = 8 \text{ bytes} \xrightarrow{\text{PKCS\char`\#7}} 16 \text{ bytes} \xrightarrow{\text{AES}} 16 \text{ bytes} = 32 \text{ hex chars}.$$
 
 ### 5.5 Tabla de credenciales descifradas
 
@@ -405,7 +405,7 @@ La siguiente tabla resume los esquemas criptográficos de modelos FiberHome cono
 | AN5506-04-F | — | Desconocido | XOR ($\kappa=9527$) | AES-128-ECB | — |
 
 Todas las claves son idénticas entre modelos:
-- Capa web: $K = \text{IV} = \texttt{opqrstuvwxyz\{|\}\textasciitilde}$
+- Capa web: $K = \text{IV} = \texttt{opqrstuvwxyz\{|\}}\sim$
 - Capa backup: $\kappa = 9527$
 - Capa credenciales: $K_{\text{ecb}} = \texttt{ABCDEFGHIJKLMNOP}$
 
